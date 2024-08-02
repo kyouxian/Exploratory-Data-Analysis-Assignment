@@ -1,0 +1,10 @@
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+library(tidyverse)
+NEI$year <- as.factor(NEI$year)
+baltm <- subset(NEI, fips == "24510")
+baltm_yc <- with(baltm, tapply(Emissions, year, sum))
+png("EDAplot2.png")
+plot(names(baltm_yc), baltm_yc, type = "l", xlab = "Year", 
+    ylab = "Total emissions of PM2.5", main = "Total emissions of PM2.5 in the Baltimore City, Maryland" )
+dev.off()
